@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cms.models.fields import PlaceholderField
+# from cms.models.fields import PlaceholderField
 
 class Request(models.Model):
     """A new request for the system"""
@@ -11,7 +11,11 @@ class Request(models.Model):
         verbose_name = "Summary",
         max_length=256, 
         help_text = "A very short description of this request (maximum two lines)",)
-    description = PlaceholderField('body',)
+    description =  models.TextField(
+        verbose_name = "Description",
+        null= True, blank = True,
+        help_text = "A very short description of this request (maximum two lines)",)
+    # description = PlaceholderField('body',)
     suggested = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
     STATUSES = (

@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, unique=True, db_index=True)),
             ('suggested_by', self.gf('django.db.models.fields.related.ForeignKey')(related_name='suggested_request', to=orm['auth.User'])),
             ('summary', self.gf('django.db.models.fields.TextField')(max_length=256)),
-            ('description', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['cms.Placeholder'], null=True)),
+            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('suggested', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('status', self.gf('django.db.models.fields.IntegerField')(default=0)),
@@ -79,12 +79,6 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'max_length': '30', 'unique': 'True'})
         },
-        'cms.placeholder': {
-            'Meta': {'object_name': 'Placeholder'},
-            'default_width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
-        },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -107,7 +101,7 @@ class Migration(SchemaMigration):
         },
         'features.request': {
             'Meta': {'object_name': 'Request'},
-            'description': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.Placeholder']", 'null': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'likely_cost': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'percent_complete': ('django.db.models.fields.IntegerField', [], {'default': '0'}),

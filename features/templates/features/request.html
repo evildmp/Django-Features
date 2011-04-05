@@ -1,0 +1,57 @@
+{% extends "arkestra.html" %}{% load typogrify placeholder_tags %}
+
+{% block title %}
+    <title>{{ feature_request }}</title>
+{% endblock title %}
+
+{% block extrastyles %}<link href="/media/css/features.css" rel="stylesheet" type="text/css" />
+{% endblock extrastyles %}
+
+
+{% block pagetitle %}
+          	{% filter typogrify %}<h{{page_title_heading_level}}>{{ feature_request }}</h{{page_title_heading_level}}>{% endfilter %}
+{% endblock pagetitle %}
+
+{% block menu %}{% endblock menu %}
+{% block main_page_body %}
+<div class = "row columns2">
+	<div class = "column firstcolumn">
+		<dl>
+			<dt>Suggested by</dt>
+			<dd>{{feature_request.suggested_by.get_full_name }}</dd>
+	    	<dt>Summary</dt>
+			<dd>{{feature_request.summary}}</dd>
+			<dt>Created</dt>
+			<dd>{{feature_request.suggested}}</dd>
+			<dt>Updated</dt>
+	    	<dd>{{feature_request.updated}}</dd>
+	 		<dt>Status</dt>
+			<dd>{{feature_request}}</dd>
+	 		<dt>Complete</dt>
+			<dd>{{feature_request.get_status_display}}</dd>
+		</dl>	
+	</div>
+	<div class = "column lastcolumn"><dl>
+		{% render_placeholder feature_request.description %}
+	</div>
+</div>
+<div class="comments">
+	<h2>Comments</h2>
+<ul>
+{% for comment in feature_request.comment.all %}
+<li>{{comment.by.get_full_name}}: {{comment}}
+<dl>
+   	<dt>Priority</dt>
+	<dd>{{comment.get_priority_display}}</dd>
+	<dt>Required by</dt>
+	<dd>{{comment.required_by}}</dd>
+	{% if comment.could_contribute %}
+	<dt>Potential development funding contribution</dt>
+   	<dd>£{{comment.could_contribute}}</dd>
+	{% endif %}
+</dl>	
+</li>
+{% endfor %}
+</ul>	
+</div>
+{% endblock main_page_body %}

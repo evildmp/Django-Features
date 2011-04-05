@@ -1,0 +1,5 @@
+body    {font-size: 90%;}
+
+div.comments    {padding: 10px; background: white; border: 1px solid black;}
+
+div.comments li {padding: 10px; background: #ccc; margin-bottom: 1em; }
